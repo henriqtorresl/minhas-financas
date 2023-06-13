@@ -1,0 +1,22 @@
+<mat-toolbar>
+    <span>Minhas Finanças</span>
+    <span class="espacamento"></span>
+
+    <!--Menu de forma dinâmica:-->
+    <div class="menu-item" *ngFor="let m of menu">
+        <a 
+            [routerLink]="m.rota" 
+            routerLinkActive="active"
+        >
+            {{ m.descricao }}
+        </a>
+    </div>
+
+    <!-- <div class="menu-item">
+        <a routerLink="categoria" routerLinkActive="active">Categorias</a>
+    </div>
+    <div class="menu-item">
+        <a routerLink="entrada" routerLinkActive="active">Entradas</a>
+    </div> -->
+    
+</mat-toolbar>

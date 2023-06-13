@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class HttpBaseService {
 
-  public readonly httpClient!: HttpClient;
+  private readonly httpClient!: HttpClient;
 
   private apiBase: string = 'http://localhost:3000/';
 
@@ -20,19 +20,19 @@ export class HttpBaseService {
 
   }
 
-  public httpGet(endpoint: string): Observable<any> {
+  protected httpGet(endpoint: string): Observable<any> {    // protected: só pode ser visualizado por quem herdar da classe HttpBaseService
     return this.httpClient.get(`${this.apiBase}${endpoint}`);
   }
 
-  public httpPost(endpoint: string, dado: any): Observable<any> {
+  protected httpPost(endpoint: string, dado: any): Observable<any> {
     return this.httpClient.post(`${this.apiBase}${endpoint}`, dado);
   }
 
-  public httpPut(endpoint: string, dado: any): Observable<any> {
+  protected httpPut(endpoint: string, dado: any): Observable<any> {
     return this.httpClient.put(`${this.apiBase}${endpoint}`, dado);
   }
 
-  public httpDelete(endpoint: string): Observable<any> {
+  protected httpDelete(endpoint: string): Observable<any> {
     return this.httpClient.delete(`${this.apiBase}${endpoint}`);
   }
 
