@@ -25,6 +25,11 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     
+    this.buscarCategorias();
+
+  }
+
+  buscarCategorias(): void {
     this.categoriaService.getCategorias().subscribe((categorias: Categoria[]) => {
       console.log(categorias);
       this.categorias = categorias;
@@ -34,11 +39,21 @@ export class ListComponent implements OnInit {
       // inicializando o paginator:
       this.dataSource.paginator = this.paginator;
     });
-
   }
 
   chamarEdicao(categoria: Categoria): void {
     this.router.navigate(['categorias', 'editar', categoria.id]);
+  }
+
+  excluir(id: number) {
+    this.categoriaService.excluirCategoria(id).subscribe(() => {
+      // após excluir, atualiza a lista de categorias:
+      this.buscarCategorias();
+    });
+  }
+
+  novaCategoria(): void {
+    this.router.navigate(['categorias', 'nova-categoria']);
   }
 
 }

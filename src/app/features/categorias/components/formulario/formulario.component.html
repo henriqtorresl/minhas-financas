@@ -8,6 +8,7 @@
                 placeholder="Ex.: Alimentação" 
                 formControlName="nome"
                 >
+            <mat-error>Nome da categoria é obrigatório!</mat-error>
         </mat-form-field>
     
         <mat-form-field class="example-full-width">
@@ -17,8 +18,17 @@
                     placeholder="Digite as informações importantes.." 
                     formControlName="descricao"
                     >
-                </textarea>
+            </textarea>
+            <mat-error>Campo de descrição é obrigatório!</mat-error>
         </mat-form-field>
     </form>
 
+    <button 
+            mat-raised-button
+            color="primary"
+            [disabled]="!formCategoria.valid"
+            (click)="salvarCategoria()"
+            >
+            Salvar
+    </button>
 </div>

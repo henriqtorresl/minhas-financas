@@ -14,6 +14,8 @@ export class FormularioComponent implements OnInit {
   categoria!: Categoria;
   id: string = '';
   formCategoria!: FormGroup;
+  rota: string = '';
+  isNovoFormulario: boolean = false;
 
   constructor(
     private categoriaService: CategoriaService,
@@ -24,10 +26,20 @@ export class FormularioComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.id = this.activatedRoute.snapshot.url[1].path;   // através do activatedRoute eu consigo capturar o que está na rota
+    this.rota = this.activatedRoute.snapshot.url[0].path;
 
     this.criarFormulario();
 
+    if (this.rota === 'editar') {
+      this.id = this.activatedRoute.snapshot.url[1].path;   // através do activatedRoute eu consigo capturar o que está na rota
+      this.buscarCategoriaPeloId();
+    } else {
+      this.isNovoFormulario = true;
+    }
+
+  }
+
+  buscarCategoriaPeloId(): void {
     this.categoriaService.getCategoriasPeloId(parseInt(this.id)).subscribe((categoria: Categoria) => {
       this.categoria = categoria;
       console.log(this.categoria);
@@ -36,7 +48,6 @@ export class FormularioComponent implements OnInit {
       this.formCategoria.controls['nome'].setValue(categoria.nome);
       this.formCategoria.controls['descricao'].setValue(categoria.descricao);
     });
-
   }
 
   criarFormulario(): void {
@@ -46,6 +57,48 @@ export class FormularioComponent implements OnInit {
         descricao: ['', Validators.required]
       }
     );
+  }
+
+  salvarCategoria(): void {
+    // só vai salvar a categoria se os campos do fomulário tiverem sido alterados...
+    if (this.formCategoria.touched && this.formCategoria.dirty) {
+      
+      // pegando o dado do formulário e armazena na variavel data
+      const data: Categoria = {
+        nome:  this.formCategoria.controls['nome'].value,
+        descricao: this.formCategoria.controls['descricao'].value
+      }
+
+      if(this.isNovoFormulario) {     // se for um novo formulario eu crio, se não eu edito...
+        this.criarCategoria(data);
+      } else {
+        data.id = this.categoria.id;
+        this.editarCategoria(data);
+      }
+
+    }
+  }
+
+  editarCategoria(data: Categoria): void {
+
+    this.categoriaService.alterarCategoria(data).subscribe((resposta) => {
+      // retornar a tela anterior após a edição..
+      this.router.navigate(['categorias']);
+
+      console.log('O dado que foi editado é: ', data);
+    });
+
+  }
+
+  criarCategoria(data: Categoria): void {
+
+    this.categoriaService.criarCategoria(data).subscribe((resposta) => {
+      // retornar a tela anterior após a criação..
+      this.router.navigate(['categorias']);
+
+      console.log('O dado que foi criado é: ', data);
+    });
+    
   }
 
 }
