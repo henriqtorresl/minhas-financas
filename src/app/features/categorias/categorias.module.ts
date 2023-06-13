@@ -5,6 +5,7 @@ import { CategoriasRoutingModule } from './categorias-routing.module';
 import { ListComponent } from './components/list/list.component';
 import { FormularioComponent } from './components/formulario/formulario.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
   imports: [
     CommonModule,
     CategoriasRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class CategoriasModule { }

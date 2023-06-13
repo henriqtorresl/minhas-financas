@@ -17,4 +17,8 @@ export class CategoriaService extends HttpBaseService{
     return this.httpGet(this.endpoint);
   }
 
+  getCategoriasPeloId(idCategoria: number): Observable<any> {
+    return this.httpGet(`${this.endpoint}/${idCategoria}`);
+  }
+
 }
