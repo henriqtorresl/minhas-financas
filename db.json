@@ -171,15 +171,6 @@
       "data": "28/04/2023",
       "valor": "30,00",
       "tipo": "despesa"
-    },
-    {
-      "nome": "Jogo novo",
-      "valor": "99,00",
-      "categoriaId": 3,
-      "pago": true,
-      "tipo": "Despesa",
-      "data": "2023-07-11T16:52:55.116Z",
-      "id": 56
     }
   ]
 }
