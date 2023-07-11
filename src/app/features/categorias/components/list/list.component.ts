@@ -13,8 +13,8 @@ import { Categoria } from '../../models/categoria.model';
 export class ListComponent implements OnInit {
 
   displayedColumns: string[] = ['nome', 'descricao', 'editar', 'excluir'];   // declarando quais colunas eu vou ter na tabela
-  dataSource = new MatTableDataSource<Categoria>();
   categorias: Categoria[] = [];
+  dataSource: MatTableDataSource<Categoria> = new MatTableDataSource<Categoria>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 

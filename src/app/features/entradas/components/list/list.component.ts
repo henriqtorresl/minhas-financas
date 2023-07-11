@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Entrada } from '../../models/entrada.model';
 import { EntradasService } from '../../service/entradas.service';
@@ -10,7 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit, AfterViewInit {
+export class ListComponent implements OnInit {
 
   displayedColumns: string[] = [
     'nome',
@@ -21,8 +21,8 @@ export class ListComponent implements OnInit, AfterViewInit {
     'editar',
     'excluir'
   ];
-  dataSource!: MatTableDataSource<Entrada>;
   entradas: Entrada[] = [];
+  dataSource: MatTableDataSource<Entrada>  = new MatTableDataSource<Entrada>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -33,11 +33,18 @@ export class ListComponent implements OnInit, AfterViewInit {
   { }
 
   ngOnInit(): void {
-
+    this.buscarEntradas();
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+  // método que faz a requisição get
+  buscarEntradas(): void {
+    this.entradaService.getEntradas()
+    .subscribe((entradas: Entrada[]) => {
+      console.log(entradas);
+      this.entradas = entradas;
+      this.dataSource.data = this.entradas;
+      this.dataSource.paginator = this.paginator;
+    });
   }
 
   chamarEdicao(entrada: Entrada): void {
