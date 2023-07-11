@@ -28,7 +28,7 @@
 
         <ng-container matColumnDef="valor">
             <th style="background-color: #efefef;" mat-header-cell *matHeaderCellDef> Valor </th>
-            <td mat-cell *matCellDef="let entrada"> {{ entrada.valor | currency: 'BRL' }} </td>
+            <td mat-cell *matCellDef="let entrada"> {{ entrada.valor | real }} </td>
         </ng-container>
 
         <ng-container matColumnDef="tipo">
