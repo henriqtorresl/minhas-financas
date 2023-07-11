@@ -48,15 +48,18 @@ export class ListComponent implements OnInit {
   }
 
   chamarEdicao(entrada: Entrada): void {
-    this.router.navigate(['entrada', 'editar', entrada.id]);
+    this.router.navigate(['entradas', 'editar', entrada.id]);
   }
 
   excluir(id: number): void {
-
+    this.entradaService.excluirEntrada(id)
+    .subscribe(resposta => {
+      this.buscarEntradas();
+    });
   }
 
   novaEntrada(): void {
-    this.router.navigate(['entrada', 'nova-entrada']);
+    this.router.navigate(['entradas', 'novo']);
   }
 
 }

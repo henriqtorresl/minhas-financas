@@ -7,3 +7,15 @@ table {
     margin: 0 auto;
     margin-top: 30px;
 }
+
+// Classes do ngClass: 
+// OBS.: o ngClass é uma property bind então usa-se dessa forma: [ngClass]
+.verde {
+    color: green;
+    font: 500;
+}
+
+.vermelho {
+    color: red;
+    font: 500;
+}
