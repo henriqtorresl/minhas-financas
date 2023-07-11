@@ -6,12 +6,14 @@ import { ListComponent } from './components/list/list.component';
 import { FormularioComponent } from './components/formulario/formulario.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StatusPipe } from './pipes/status.pipe';
 
 
 @NgModule({
   declarations: [
     ListComponent,
-    FormularioComponent
+    FormularioComponent,
+    StatusPipe
   ],
   imports: [
     CommonModule,
