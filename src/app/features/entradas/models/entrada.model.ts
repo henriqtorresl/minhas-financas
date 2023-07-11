@@ -4,6 +4,6 @@ export interface Entrada {
     categoriaId: number;
     pago: boolean;
     data: string;
-    valor: string;
+    valor: number;
     tipo: string;
 }
