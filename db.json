@@ -29,6 +29,11 @@
       "id": 6,
       "nome": "Outros",
       "descricao": "Outras despesas"
+    },
+    {
+      "nome": "Férias",
+      "descricao": "Recebimento de férias",
+      "id": 7
     }
   ],
   "entradas": [
