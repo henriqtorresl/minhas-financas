@@ -24,7 +24,7 @@ import localePt from '@angular/common/locales/pt'
     MaterialModule
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: localePt}
+    {provide: LOCALE_ID, useValue: 'pt-br'}
   ],
   bootstrap: [AppComponent]
 })

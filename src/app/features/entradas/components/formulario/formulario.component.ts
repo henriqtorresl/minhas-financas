@@ -5,6 +5,7 @@ import { CategoriaService } from 'src/app/features/categorias/service/categoria.
 import { EntradasService } from '../../service/entradas.service';
 import * as dayjs from 'dayjs';
 import { Entrada } from '../../models/entrada.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-formulario',
@@ -14,8 +15,8 @@ import { Entrada } from '../../models/entrada.model';
 export class FormularioComponent implements OnInit {
 
   tiposDeEntradas = [
-    'Receita',
-    'Despesa'
+    'receita',
+    'despesa'
   ]
 
   statusDePagamento = [
@@ -25,16 +26,50 @@ export class FormularioComponent implements OnInit {
 
   categorias: Categoria[] = [];
   formEntradas!: FormGroup;
+  rota: string = '';
+  id: string = '';
+  entrada!: Entrada;
+  estaCriando: boolean = false;
 
   constructor(
     private categoriaService: CategoriaService,
     private entradaService: EntradasService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.buscarCategorias();
     this.criarFormulario();
+
+    this.rota = this.route.snapshot.url[0].path;        // pega o primeiro parâmetro da url
+    if (this.rota === 'editar') {
+      this.id = this.route.snapshot.url[1].path;        // pega o segundo parâmetro da url..
+
+      this.buscarEntradaPeloId();
+    } else {
+      this.estaCriando = true;
+    }
+
+  }
+
+  buscarEntradaPeloId(): void {
+    this.entradaService.getEntradasPeloId(+this.id)           // o '+' é como se fosse o ParseInt, é uma outra forma de formatar string para number
+    .subscribe((entrada: Entrada) => {
+      this.entrada = entrada;
+      console.log(this.entrada);
+
+      const data = this.entrada.data.split('/');
+
+      // trazendo os campos da requisição para preencher o formuláruio na tela de edição
+      this.formEntradas.controls['nome'].setValue(this.entrada.nome);
+      this.formEntradas.controls['valor'].setValue(this.entrada.valor);
+      this.formEntradas.controls['categoriaId'].setValue(this.entrada.categoriaId);
+      this.formEntradas.controls['pago'].setValue(this.entrada.pago);
+      this.formEntradas.controls['tipo'].setValue(this.entrada.tipo);
+      this.formEntradas.controls['data'].setValue(new Date(+data[2], +data[1] - 1, +data[0])); 
+    });
   }
 
   buscarCategorias():void {
@@ -73,10 +108,32 @@ export class FormularioComponent implements OnInit {
       valor: payloadRequest.valor
     }
 
+    if (this.estaCriando == true) {
+      this.criarNovaEntrada(payload);
+    } else {
+      payload.id = this.entrada.id;
+      this.editarEntrada(payload);
+    }
+  }
+
+  criarNovaEntrada(payload: Entrada) {
     this.entradaService.criarEntrada(payload)
     .subscribe(resposta => {
-      console.log('Entrada criada!');
-    });
+      this.router.navigate(['entradas']);
+      console.log('Criado');
+    })
+  }
+
+  editarEntrada(payload: Entrada) {
+    this.entradaService.alterarEntrada(payload)
+    .subscribe(resposta => {
+      this.router.navigate(['entradas']);
+      console.log('Editado');
+    })
+  }
+
+  redirecionar(): void {
+    this.router.navigate(['entradas']);
   }
 
 }

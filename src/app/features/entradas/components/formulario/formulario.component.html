@@ -1,11 +1,11 @@
 <div class="container">
     <h1 class="center">Cadastro de entradas</h1>
 </div>
-<div class="container flex">
+<div class="flex">
 
     <form [formGroup]="formEntradas" >
 
-        <mat-form-field class="example-form-field">
+        <mat-form-field>
             <mat-label>Entrada</mat-label>
             <input matInput type="text" formControlName="nome">
             <!-- <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
@@ -13,7 +13,7 @@
             </button> -->
         </mat-form-field>
     
-        <mat-form-field class="example-form-field">
+        <mat-form-field>
             <mat-label>Valor</mat-label>
             <input matInput type="text" formControlName="valor">
             <!-- <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
@@ -52,7 +52,6 @@
         <mat-form-field>
             <mat-label>Choose a date</mat-label>
             <input matInput [matDatepicker]="picker" formControlName="data">
-            <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
