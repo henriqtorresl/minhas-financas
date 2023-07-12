@@ -24,12 +24,15 @@ export class FormularioComponent implements OnInit {
     {value: false, descricao: 'Pendente'}
   ]
 
-  categorias: Categoria[] = [];
+  // categorias: Categoria[] = [];
   formEntradas!: FormGroup;
   rota: string = '';
   id: string = '';
   entrada!: Entrada;
   estaCriando: boolean = false;
+
+  // categoria Observable ($ == Observable):
+  categorias$ = this.categoriaService.getCategorias();        // dessa forma ganhamos em performance e em escrita de código  
 
   constructor(
     private categoriaService: CategoriaService,
@@ -40,7 +43,7 @@ export class FormularioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.buscarCategorias();
+    // this.buscarCategorias();
     this.criarFormulario();
 
     this.rota = this.route.snapshot.url[0].path;        // pega o primeiro parâmetro da url
@@ -72,13 +75,13 @@ export class FormularioComponent implements OnInit {
     });
   }
 
-  buscarCategorias():void {
-    this.categoriaService.getCategorias()
-    .subscribe((categorias: Categoria[]) => {
-      this.categorias = categorias;
-      console.log('requisição: ', this.categorias);
-    });
-  }
+  // buscarCategorias():void {
+  //   this.categoriaService.getCategorias()
+  //   .subscribe((categorias: Categoria[]) => {
+  //     this.categorias = categorias;
+  //     console.log('requisição: ', this.categorias);
+  //   });
+  // }
 
   criarFormulario(): void {
     this.formEntradas = this.formBuilder.group({
@@ -136,4 +139,9 @@ export class FormularioComponent implements OnInit {
     this.router.navigate(['entradas']);
   }
 
+  // UnSubscribe:
+  // Para se desescrever de um Observable
+  // ngOnDestroy(): void {
+    
+  // }
 }
