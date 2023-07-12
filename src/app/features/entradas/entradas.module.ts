@@ -8,6 +8,7 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StatusPipe } from './pipes/status.pipe';
 import { RealPipe } from './pipes/real.pipe';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 
 @NgModule({
@@ -22,10 +23,15 @@ import { RealPipe } from './pipes/real.pipe';
     EntradasRoutingModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskDirective,
+    NgxMaskPipe
   ],
   exports: [
     RealPipe
+  ],
+  providers: [    // providers: Recursos que adicionando ao nosso módulo onde todos os componentes que foram declarados nesse módulo podem fazer o uso desse provider...
+    provideNgxMask()
   ]
 })
 export class EntradasModule { }
