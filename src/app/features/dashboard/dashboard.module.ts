@@ -5,6 +5,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { EntradasModule } from '../entradas/entradas.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { EntradasModule } from '../entradas/entradas.module';
     CommonModule,
     DashboardRoutingModule,
     MaterialModule,
-    EntradasModule
+    EntradasModule,
+    ReactiveFormsModule
   ]
 })
 export class DashboardModule { }
