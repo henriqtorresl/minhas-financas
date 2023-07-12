@@ -23,6 +23,9 @@ import { RealPipe } from './pipes/real.pipe';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  exports: [
+    RealPipe
   ]
 })
 export class EntradasModule { }
