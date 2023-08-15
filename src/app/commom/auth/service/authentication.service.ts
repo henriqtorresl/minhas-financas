@@ -10,9 +10,9 @@ export class AuthenticationService extends HttpBaseService {
 
   // subjects
   // bahaviorSubjects  -> após fazermos o login viremos aq para dentro do behaviorSubjects para pegar os dados do usuário..
-
+  
   private subjectUsuario: BehaviorSubject<any> = new BehaviorSubject(null);
-  private subjectLogin: BehaviorSubject<any> = new BehaviorSubject(null);
+  private subjectLogin: BehaviorSubject<any> = new BehaviorSubject(false);
 
   constructor(
     protected override readonly injector: Injector
