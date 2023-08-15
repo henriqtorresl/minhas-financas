@@ -12,3 +12,4 @@ Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli
 ### Observações
 - Por padrão o projeto ira rodar em `http://localhost:4200/`
 - Já a API vai rodar em `http://localhost:3000/`
+- Com a adição do módulo de autenticação não estou mais usando o json-server para simular a API, estou usando o software Mockoon
